@@ -1,10 +1,15 @@
 import { createConfig, http } from "wagmi";
-import { mainnet, optimism } from "wagmi/chains";
+import { mainnet, base, optimism } from "wagmi/chains";
+import { injected, safe, walletConnect } from "wagmi/connectors";
 
-export const configA = createConfig({
-  chains: [mainnet],
+const projectId = process.env.WALLECT_CONNECT_PROJECTID as string;
+
+export const config = createConfig({
+  chains: [mainnet, base],
+  connectors: [injected(), walletConnect({ projectId }), safe()],
   transports: {
     [mainnet.id]: http(),
+    [base.id]: http(),
   },
 });
 

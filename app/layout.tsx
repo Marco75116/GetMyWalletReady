@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { WagmiProvider } from "wagmi";
-import { configA, configB } from "@/lib/clients/wagmi/config";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
