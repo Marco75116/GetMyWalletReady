@@ -1,6 +1,6 @@
 {
 	"files": {
-		"include": ["**/*.tsx", "**/*.jsx"]
+		"include": ["**/*.ts","**/*.tsx", "**/*.jsx"]
 	},
 	"$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
 	"organizeImports": {

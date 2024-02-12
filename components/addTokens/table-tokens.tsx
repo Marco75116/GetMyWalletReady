@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useMemo } from "react";
 import {
 	Table,
 	TableBody,
@@ -8,26 +9,33 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import TableHeaderTokens from "./table-header";
+import RowTokens from "./row-tokens";
+import { allTokens } from "@/lib/constants/tokens.constans";
 
 const TableTokens = () => {
+	const tokensSelection = useMemo(() => {
+		return allTokens.mainnet;
+	}, []);
+
 	return (
 		<div className="rounded-md border">
 			<Table>
 				<TableHeader>
-					<TableRow>
-						<TableHead className="w-[100px]">Invoice</TableHead>
-						<TableHead>Status</TableHead>
-						<TableHead>Method</TableHead>
-						<TableHead className="text-right">Amount</TableHead>
-					</TableRow>
+					<TableHeaderTokens />
 				</TableHeader>
 				<TableBody>
-					<TableRow>
-						<TableCell className="font-medium">INV001</TableCell>
-						<TableCell>Paid</TableCell>
-						<TableCell>Credit Card</TableCell>
-						<TableCell className="text-right">$250.00</TableCell>
-					</TableRow>
+					{tokensSelection.length !== 0 ? (
+						tokensSelection.map((token) => (
+							<RowTokens token={token} key={token.address} />
+						))
+					) : (
+						<TableRow>
+							<TableCell colSpan={7} className="h-24 text-center">
+								No results.
+							</TableCell>
+						</TableRow>
+					)}
 				</TableBody>
 			</Table>
 		</div>

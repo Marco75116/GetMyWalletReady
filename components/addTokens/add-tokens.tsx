@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
@@ -12,9 +11,22 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useAccount } from "wagmi";
 import TableTokens from "./table-tokens";
+import { watchAccount } from "@wagmi/core";
+import { config } from "@/lib/clients/wagmi/config";
+import { useWalletClient } from "@/lib/store/walletClient.store";
+import { getWalletClient } from "@wagmi/core";
 
 const AddTokens = () => {
 	const { address } = useAccount();
+	const { setWalletClient } = useWalletClient();
+	watchAccount(config, {
+		onChange(data) {
+			getWalletClient(config).then((walletclient) => {
+				setWalletClient(walletclient);
+			});
+		},
+	});
+
 	return (
 		<div className="container mx-auto py-10">
 			<Card>
@@ -35,9 +47,6 @@ const AddTokens = () => {
 				<CardContent>
 					<TableTokens />
 				</CardContent>
-				<CardFooter>
-					<p>Card Footer</p>
-				</CardFooter>
 			</Card>
 		</div>
 	);
