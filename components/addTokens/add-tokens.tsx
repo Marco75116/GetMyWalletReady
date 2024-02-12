@@ -13,7 +13,7 @@ import { useAccount } from "wagmi";
 import TableTokens from "./table-tokens";
 import { watchAccount } from "@wagmi/core";
 import { config } from "@/lib/clients/wagmi/config";
-import { useWalletClient } from "@/lib/store/walletClient.store";
+import { useWalletClient } from "@/lib/stores/walletClient.store";
 import { getWalletClient } from "@wagmi/core";
 
 const AddTokens = () => {
