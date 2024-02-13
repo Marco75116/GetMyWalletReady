@@ -13,7 +13,11 @@ const TableHeaderTokens = () => {
 	const checkBoxCell = useMemo(() => {
 		return (
 			<Checkbox
-				checked={tokensSelection.length === allTokens[chainId].length}
+				checked={
+					allTokens[chainId]
+						? tokensSelection.length === allTokens[chainId].length
+						: false
+				}
 				onCheckedChange={(value) => {
 					if (value) {
 						setTokensSelection(allTokens[chainId]);
