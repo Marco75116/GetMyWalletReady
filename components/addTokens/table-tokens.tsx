@@ -3,15 +3,13 @@ import React, { useMemo } from "react";
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
-	TableHead,
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
 import TableHeaderTokens from "./table-header";
 import RowTokens from "./row-tokens";
-import { allTokens } from "@/lib/constants/tokens.constans";
+import { allTokens } from "@/lib/constants/tokens.constant";
 import TopTable from "./top-table";
 
 const TableTokens = () => {

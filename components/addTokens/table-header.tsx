@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { TableHead, TableRow } from "../ui/table";
 import { Checkbox } from "../ui/checkbox";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
-import { allTokens } from "@/lib/constants/tokens.constans";
+import { allTokens } from "@/lib/constants/tokens.constant";
 
 const TableHeaderTokens = () => {
 	const { setTokensSelection } = useTokensSelection();
