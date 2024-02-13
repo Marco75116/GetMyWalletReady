@@ -1,7 +1,7 @@
+"use client";
 import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useWalletClient } from "@/lib/stores/walletClient.store";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
 import { addTokenToWallet } from "@/lib/helpers/global.helper";
 import {
@@ -17,9 +17,10 @@ import {
 } from "@/lib/constants/blockchain.constant";
 import { config } from "@/lib/clients/wagmi/config";
 import { switchChain } from "@wagmi/core";
+import { useWalletClient } from "wagmi";
 
 const TopTable = () => {
-	const { walletClient } = useWalletClient();
+	const { data: walletClient } = useWalletClient();
 	const { tokensSelection } = useTokensSelection();
 
 	return (

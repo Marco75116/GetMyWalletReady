@@ -4,10 +4,10 @@ import React, { useMemo } from "react";
 import { TableCell, TableRow } from "../ui/table";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
-import { useWalletClient } from "@/lib/stores/walletClient.store";
 import { Checkbox } from "../ui/checkbox";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
 import { addTokenToWallet } from "@/lib/helpers/global.helper";
+import { useWalletClient } from "wagmi";
 
 type RowTokensProps = {
 	token: Token;
@@ -15,7 +15,7 @@ type RowTokensProps = {
 const RowTokens = ({ token }: RowTokensProps) => {
 	const { tokensSelection, addTokenToSelection, removeTokenToSelection } =
 		useTokensSelection();
-	const { walletClient } = useWalletClient();
+	const { data: walletClient } = useWalletClient();
 
 	const addTokenCell = useMemo(() => {
 		return (
