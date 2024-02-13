@@ -1,7 +1,8 @@
+import { mainnet } from "viem/chains";
 import { AllTokens } from "../types/global.types";
 
 export const allTokens: AllTokens = {
-	mainnet: [
+	[mainnet.id]: [
 		{
 			symbol: "USDC",
 			name: "USD Coin",

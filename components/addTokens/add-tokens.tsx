@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import {
 	Card,
 	CardContent,
@@ -9,11 +9,19 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId, useSwitchChain } from "wagmi";
 import TableTokens from "./table-tokens";
 
 const AddTokens = () => {
 	const { address } = useAccount();
+	const { chains } = useSwitchChain();
+	const chainId = useChainId();
+
+	const urlExplorer = useMemo(() => {
+		const chain = chains.find((chain) => chain.id === chainId);
+
+		return `${chain?.blockExplorers?.default.url}/address/${address}`;
+	}, [chainId, chains, address]);
 
 	return (
 		<div className="container mx-auto py-10">
@@ -24,10 +32,7 @@ const AddTokens = () => {
 					</CardTitle>
 					<CardDescription className="flex flex-row items-center gap-2 ">
 						{address}
-						<Link
-							href={`https://optimistic.etherscan.io/address/${address}`}
-							target="_blank"
-						>
+						<Link href={urlExplorer} target="_blank">
 							<ArrowUpRight />
 						</Link>
 					</CardDescription>

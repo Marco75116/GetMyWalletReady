@@ -11,11 +11,14 @@ import TableHeaderTokens from "./table-header";
 import RowTokens from "./row-tokens";
 import { allTokens } from "@/lib/constants/tokens.constant";
 import TopTable from "./top-table";
+import { useChainId } from "wagmi";
 
 const TableTokens = () => {
+	const chainId = useChainId();
+
 	const tokensSelection = useMemo(() => {
-		return allTokens.mainnet;
-	}, []);
+		return allTokens[chainId] || [];
+	}, [allTokens[chainId], chainId]);
 
 	return (
 		<>

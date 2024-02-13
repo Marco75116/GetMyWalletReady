@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
@@ -11,33 +11,29 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import {
-	BlockchainIDs,
-	blockchains,
-} from "@/lib/constants/blockchain.constant";
-import { config } from "@/lib/clients/wagmi/config";
-import { switchChain } from "@wagmi/core";
-import { useWalletClient } from "wagmi";
+import { useSwitchChain, useWalletClient, useChainId } from "wagmi";
 
 const TopTable = () => {
 	const { data: walletClient } = useWalletClient();
 	const { tokensSelection } = useTokensSelection();
+	const { chains, switchChain } = useSwitchChain();
+	const chainId = useChainId();
 
 	return (
 		<div className="flex items-center py-4 pr-1 gap-8 justify-between">
 			<div className="flex gap-8">
 				<Input placeholder="Search a token..." className=" max-w-[10rem]" />
 				<Select
-					defaultValue={"1"}
+					value={chainId.toString()}
 					onValueChange={(value) => {
-						switchChain(config, { chainId: Number(value) as BlockchainIDs });
+						switchChain({ chainId: Number(value) });
 					}}
 				>
 					<SelectTrigger className="w-[180px]">
 						<SelectValue />
 					</SelectTrigger>
 					<SelectContent>
-						{blockchains.map((blockchain) => {
+						{chains.map((blockchain) => {
 							return (
 								<SelectItem
 									value={blockchain.id.toString()}
