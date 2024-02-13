@@ -15,8 +15,14 @@ import { useSwitchChain, useWalletClient, useChainId } from "wagmi";
 
 const TopTable = () => {
 	const { data: walletClient } = useWalletClient();
-	const { tokensSelection } = useTokensSelection();
-	const { chains, switchChain } = useSwitchChain();
+	const { tokensSelection, setTokensSelection } = useTokensSelection();
+	const { chains, switchChain } = useSwitchChain({
+		mutation: {
+			onSuccess(data) {
+				setTokensSelection([]);
+			},
+		},
+	});
 	const chainId = useChainId();
 
 	return (

@@ -4,23 +4,26 @@ import { TableHead, TableRow } from "../ui/table";
 import { Checkbox } from "../ui/checkbox";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
 import { allTokens } from "@/lib/constants/tokens.constant";
+import { useChainId } from "wagmi";
 
 const TableHeaderTokens = () => {
-	const { setTokensSelection } = useTokensSelection();
+	const { tokensSelection, setTokensSelection } = useTokensSelection();
+	const chainId = useChainId();
 
 	const checkBoxCell = useMemo(() => {
 		return (
 			<Checkbox
+				checked={tokensSelection.length === allTokens[chainId].length}
 				onCheckedChange={(value) => {
 					if (value) {
-						setTokensSelection(allTokens.mainnet);
+						setTokensSelection(allTokens[chainId]);
 					} else {
 						setTokensSelection([]);
 					}
 				}}
 			/>
 		);
-	}, [setTokensSelection]);
+	}, [setTokensSelection, allTokens[chainId], chainId, tokensSelection]);
 
 	return (
 		<TableRow>

@@ -1,4 +1,4 @@
-import { mainnet } from "viem/chains";
+import { mainnet, optimism } from "viem/chains";
 import { AllTokens } from "../types/global.types";
 
 export const allTokens: AllTokens = {
@@ -20,6 +20,26 @@ export const allTokens: AllTokens = {
 			name: "Wrapped Ether",
 			decimals: 18,
 			address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+		},
+	],
+	[optimism.id]: [
+		{
+			symbol: "USDC",
+			name: "USD Coin",
+			decimals: 6,
+			address: "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
+		},
+		{
+			symbol: "DAI",
+			name: "Dai Stablecoin",
+			decimals: 18,
+			address: "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+		},
+		{
+			symbol: "WETH",
+			name: "Wrapped Ether",
+			decimals: 18,
+			address: "0x4200000000000000000000000000000000000006",
 		},
 	],
 };
