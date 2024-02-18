@@ -12,13 +12,25 @@ import RowTokens from "./row-tokens";
 import { allTokens } from "@/lib/constants/tokens.constant";
 import TopTable from "./top-table";
 import { useChainId } from "wagmi";
+import { useTokensSearch } from "@/lib/stores/tokenSearch.store";
 
 const TableTokens = () => {
 	const chainId = useChainId();
+	const { tokensSearch } = useTokensSearch();
 
 	const tokensSelection = useMemo(() => {
-		return allTokens[chainId] || [];
-	}, [allTokens[chainId], chainId]);
+		if (tokensSearch === "") {
+			return allTokens[chainId] || [];
+		}
+		return (
+			allTokens[chainId].filter((token) => {
+				return (
+					token.name.includes(tokensSearch) ||
+					token.symbol.includes(tokensSearch)
+				);
+			}) || []
+		);
+	}, [allTokens[chainId], chainId, tokensSearch]);
 
 	return (
 		<>

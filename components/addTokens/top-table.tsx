@@ -12,6 +12,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { useSwitchChain, useWalletClient, useChainId } from "wagmi";
+import { useTokensSearch } from "@/lib/stores/tokenSearch.store";
 
 const TopTable = () => {
 	const { data: walletClient } = useWalletClient();
@@ -24,11 +25,18 @@ const TopTable = () => {
 		},
 	});
 	const chainId = useChainId();
+	const { setTokensSearch } = useTokensSearch();
 
 	return (
 		<div className="flex items-center py-4 pr-1 gap-8 justify-between">
 			<div className="flex gap-8">
-				<Input placeholder="Search a token..." className=" max-w-[10rem]" />
+				<Input
+					placeholder="Search a token..."
+					onChange={(e) => {
+						setTokensSearch(e.target.value);
+					}}
+					className=" max-w-[10rem]"
+				/>
 				<Select
 					value={chainId.toString()}
 					onValueChange={(value) => {
