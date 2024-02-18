@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/select";
 import { useSwitchChain, useWalletClient, useChainId } from "wagmi";
 import { useTokensSearch } from "@/lib/stores/tokenSearch.store";
+import { Plus } from "lucide-react";
+import { useTokensStableCoin } from "@/lib/stores/tokenStableCoin.store";
 
 const TopTable = () => {
 	const { data: walletClient } = useWalletClient();
@@ -26,6 +28,7 @@ const TopTable = () => {
 	});
 	const chainId = useChainId();
 	const { setTokensSearch } = useTokensSearch();
+	const { tokensStableCoin, setTokensStableCoin } = useTokensStableCoin();
 
 	return (
 		<div className="flex items-center py-4 pr-1 gap-8 justify-between">
@@ -59,16 +62,27 @@ const TopTable = () => {
 						})}
 					</SelectContent>
 				</Select>
+
+				<Button
+					className={` flex gap-2 ${!tokensStableCoin && " opacity-50"} `}
+					onClick={() => {
+						setTokensStableCoin();
+					}}
+				>
+					Stablecoins
+				</Button>
 			</div>
 
 			<Button
+				className=" flex gap-2"
 				onClick={() => {
 					tokensSelection.map((token) => {
 						addTokenToWallet(token, walletClient);
 					});
 				}}
+				disabled={tokensSelection.length === 0}
 			>
-				Add
+				Add Selection <Plus />
 			</Button>
 		</div>
 	);

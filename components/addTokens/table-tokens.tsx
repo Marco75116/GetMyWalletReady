@@ -13,24 +13,33 @@ import { allTokens } from "@/lib/constants/tokens.constant";
 import TopTable from "./top-table";
 import { useChainId } from "wagmi";
 import { useTokensSearch } from "@/lib/stores/tokenSearch.store";
+import { useTokensStableCoin } from "@/lib/stores/tokenStableCoin.store";
 
 const TableTokens = () => {
 	const chainId = useChainId();
 	const { tokensSearch } = useTokensSearch();
+	const { tokensStableCoin } = useTokensStableCoin();
 
 	const tokensSelection = useMemo(() => {
-		if (tokensSearch === "") {
-			return allTokens[chainId] || [];
-		}
 		return (
-			allTokens[chainId].filter((token) => {
-				return (
-					token.name.includes(tokensSearch) ||
-					token.symbol.includes(tokensSearch)
-				);
-			}) || []
+			allTokens[chainId]
+				.filter((token) => {
+					if (tokensStableCoin) {
+						return token.isStableCoins === true;
+					}
+					return true;
+				})
+				.filter((token) => {
+					if (tokensSearch === "") {
+						return true;
+					}
+					return (
+						token.name.includes(tokensSearch) ||
+						token.symbol.includes(tokensSearch)
+					);
+				}) || []
 		);
-	}, [allTokens[chainId], chainId, tokensSearch]);
+	}, [allTokens[chainId], tokensSearch, tokensStableCoin]);
 
 	return (
 		<>
