@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
 	Table,
 	TableBody,
@@ -12,16 +12,16 @@ import RowTokens from "./row-tokens";
 import { allTokens } from "@/lib/constants/tokens.constant";
 import TopTable from "./top-table";
 import { useChainId } from "wagmi";
-import { useTokensSearch } from "@/lib/stores/tokenSearch.store";
-import { useTokensStableCoin } from "@/lib/stores/tokenStableCoin.store";
+import { useTokensFilter } from "@/lib/stores/tokensFilter.store";
+import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
 
 const TableTokens = () => {
 	const chainId = useChainId();
-	const { tokensSearch } = useTokensSearch();
-	const { tokensStableCoin } = useTokensStableCoin();
+	const { tokensSearch, tokensStableCoin } = useTokensFilter();
+	const { tokensSelection, setTokensSelection } = useTokensSelection();
 
-	const tokensSelection = useMemo(() => {
-		return (
+	const tokensDisplayed = useMemo(() => {
+		const tokensDisplayed =
 			allTokens[chainId]
 				.filter((token) => {
 					if (tokensStableCoin) {
@@ -37,8 +37,18 @@ const TableTokens = () => {
 						token.name.includes(tokensSearch) ||
 						token.symbol.includes(tokensSearch)
 					);
-				}) || []
-		);
+				}) || [];
+
+		const tokens = tokensSelection.filter((token) => {
+			for (let i = 0; i < tokensDisplayed.length; i++) {
+				if (token.address === tokensDisplayed[i].address) return true;
+			}
+			return false;
+		});
+
+		setTokensSelection(tokens);
+
+		return tokensDisplayed;
 	}, [allTokens[chainId], tokensSearch, tokensStableCoin]);
 
 	return (
@@ -47,11 +57,11 @@ const TableTokens = () => {
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>
-						<TableHeaderTokens />
+						<TableHeaderTokens tokensDisplayed={tokensDisplayed} />
 					</TableHeader>
 					<TableBody>
-						{tokensSelection.length !== 0 ? (
-							tokensSelection.map((token) => (
+						{tokensDisplayed.length !== 0 ? (
+							tokensDisplayed.map((token) => (
 								<RowTokens token={token} key={token.address} />
 							))
 						) : (

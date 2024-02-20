@@ -12,9 +12,8 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { useSwitchChain, useWalletClient, useChainId } from "wagmi";
-import { useTokensSearch } from "@/lib/stores/tokenSearch.store";
+import { useTokensFilter } from "@/lib/stores/tokensFilter.store";
 import { Plus } from "lucide-react";
-import { useTokensStableCoin } from "@/lib/stores/tokenStableCoin.store";
 
 const TopTable = () => {
 	const { data: walletClient } = useWalletClient();
@@ -27,8 +26,8 @@ const TopTable = () => {
 		},
 	});
 	const chainId = useChainId();
-	const { setTokensSearch } = useTokensSearch();
-	const { tokensStableCoin, setTokensStableCoin } = useTokensStableCoin();
+	const { setTokensSearch, tokensStableCoin, setTokensStableCoin } =
+		useTokensFilter();
 
 	return (
 		<div className="flex items-center py-4 pr-1 gap-8 justify-between">
