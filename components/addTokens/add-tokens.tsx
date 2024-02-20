@@ -13,23 +13,26 @@ import { useAccount, useChainId, useSwitchChain } from "wagmi";
 import TableTokens from "./table-tokens";
 
 const AddTokens = () => {
-	const { address } = useAccount();
+	const { address, isConnected } = useAccount();
 	const { chains } = useSwitchChain();
 	const chainId = useChainId();
 
 	const urlExplorer = useMemo(() => {
 		const chain = chains.find((chain) => chain.id === chainId);
-
-		return `${chain?.blockExplorers?.default.url}/address/${address}`;
-	}, [chainId, chains, address]);
+		if (isConnected) {
+			return `${chain?.blockExplorers?.default.url}/address/${address}`;
+		}
+		return chain?.blockExplorers?.default.url || "";
+	}, [chainId, chains, address, isConnected]);
 
 	return (
-		<div className="container mx-auto py-10">
+		<div className="py-10">
 			<Card>
 				<CardHeader>
 					<CardTitle>
 						ERC-20 - Add multiple tokens to your wallet in one click.
 					</CardTitle>
+
 					<CardDescription className="flex flex-row items-center gap-2 ">
 						{address}
 						<Link href={urlExplorer} target="_blank">

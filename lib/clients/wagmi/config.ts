@@ -8,13 +8,17 @@ import {
 	avalanche,
 	bsc,
 } from "wagmi/chains";
-import { injected, safe, walletConnect } from "wagmi/connectors";
+import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
 
 const projectId = process.env.WALLECT_CONNECT_PROJECTID as string;
 
 export const config = createConfig({
-	chains: [mainnet, arbitrum, optimism, polygon,bsc, base, avalanche],
-	connectors: [injected(), walletConnect({ projectId })],
+	chains: [mainnet, arbitrum, optimism, polygon, bsc, base, avalanche],
+	connectors: [
+		walletConnect({
+			projectId: projectId,
+		}),
+	],
 	transports: {
 		[mainnet.id]: http(),
 		[arbitrum.id]: http(),

@@ -1,10 +1,21 @@
 "use client";
-import { useAccount } from "wagmi";
-import { Account } from "./accounts";
+import { useAccount, useDisconnect } from "wagmi";
 import { WalletOptions } from "./wallet-options";
+import { Button } from "./ui/button";
 
-export function ConnectWallet() {
+export function Wallet() {
 	const { isConnected } = useAccount();
-	if (isConnected) return <Account />;
-	return <WalletOptions />;
+	const { disconnect } = useDisconnect();
+	if (!isConnected) return <WalletOptions />;
+
+	return (
+		<Button
+			variant={"outline"}
+			onClick={() => {
+				disconnect();
+			}}
+		>
+			Disconnect
+		</Button>
+	);
 }

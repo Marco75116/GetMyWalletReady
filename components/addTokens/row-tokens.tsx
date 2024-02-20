@@ -7,12 +7,13 @@ import { Plus } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
 import { addTokenToWallet } from "@/lib/helpers/global.helper";
-import { useWalletClient } from "wagmi";
+import { useAccount, useWalletClient } from "wagmi";
 
 type RowTokensProps = {
 	token: Token;
 };
 const RowTokens = ({ token }: RowTokensProps) => {
+	const { isConnected } = useAccount();
 	const { tokensSelection, addTokenToSelection, removeTokenToSelection } =
 		useTokensSelection();
 	const { data: walletClient } = useWalletClient();
@@ -24,11 +25,12 @@ const RowTokens = ({ token }: RowTokensProps) => {
 				onClick={() => {
 					addTokenToWallet(token, walletClient);
 				}}
+				disabled={!isConnected}
 			>
 				Add <Plus />
 			</Button>
 		);
-	}, [walletClient, token]);
+	}, [walletClient, token, isConnected]);
 
 	const isSelected = useMemo(() => {
 		return tokensSelection.includes(token);

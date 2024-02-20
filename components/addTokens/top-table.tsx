@@ -11,11 +11,12 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useSwitchChain, useWalletClient, useChainId } from "wagmi";
+import { useSwitchChain, useWalletClient, useChainId, useAccount } from "wagmi";
 import { useTokensFilter } from "@/lib/stores/tokensFilter.store";
 import { Plus } from "lucide-react";
 
 const TopTable = () => {
+	const { isConnected } = useAccount();
 	const { data: walletClient } = useWalletClient();
 	const { tokensSelection, setTokensSelection } = useTokensSelection();
 	const { chains, switchChain } = useSwitchChain({
@@ -79,7 +80,7 @@ const TopTable = () => {
 						addTokenToWallet(token, walletClient);
 					});
 				}}
-				disabled={tokensSelection.length === 0}
+				disabled={tokensSelection.length === 0 || !isConnected}
 			>
 				Add Selection <Plus />
 			</Button>
