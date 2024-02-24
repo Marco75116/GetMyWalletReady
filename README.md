@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GetMyWalletReady - set up your wallet in seconds 
 
-## Getting Started
+An EVM-based app that also allows you to batch-add tokens to your favorite Web3 wallet, simultaneously it also adds the chain.
 
-First, run the development server:
+## Adding tokens
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ERC-20 compliant or compatible only, please. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<b>No Shitcoins</b>. Quality Over Quantity our goal is to provide a quality user experience by incorporating reliable tokens. Therefore, we reserve the right to evaluate each submitted token against these criteria.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Edit by adding your Token to  [tokens.constant.ts](/lib/constants/tokens.constant.ts) and leave a PR.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+### Token Fields :
 
-To learn more about Next.js, take a look at the following resources:
+-  `symbol`:    Short ticker style symbol of token.
+-  `name`:      Longer human version of token.
+-  `decimals`:  The decimals of the token. As Number and not String.
+-  `address`:   Ethereum (or other chain) address of ERC-20 token.
+-  `isStableCoins`: Stablecoin information, as Boolean.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Questions & Improvements
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Your feedback and contributions are highly valued! If you have any suggestions for improvement or new features you'd like to see in GetMyWalletReady, feel free to get in touch. There are two main ways you can contribute:
 
-## Deploy on Vercel
+- <b>Open a Pull Request (PR) </b>: If you have a specific improvement or addition you'd like to make, please submit a pull request with your changes.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- <b>Open an Issue</b>: For feature requests, questions, or discussions about potential improvements, please open an issue in our GitHub repository. This allows us to track community feedback.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+We're looking forward to your input and working together to make GetMyWalletReady even better!
