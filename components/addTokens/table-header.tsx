@@ -17,7 +17,8 @@ const TableHeaderTokens = ({ tokensDisplayed }: TableHeaderTokensProps) => {
 			<Checkbox
 				checked={
 					tokensDisplayed
-						? tokensSelection.length === tokensDisplayed.length
+						? tokensSelection.length === tokensDisplayed.length &&
+						  tokensSelection.length !== 0
 						: false
 				}
 				onCheckedChange={(value) => {
