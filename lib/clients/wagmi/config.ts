@@ -13,10 +13,21 @@ import {
 } from "wagmi/chains";
 import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
 
-const projectId = process.env.WALLECT_CONNECT_PROJECTID as string;
+const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECTID as string;
 
 export const config = createConfig({
-	chains: [mainnet, arbitrum, optimism, polygon, bsc, base, avalanche, moonriver, moonbeam,linea],
+	chains: [
+		mainnet,
+		arbitrum,
+		optimism,
+		polygon,
+		bsc,
+		base,
+		avalanche,
+		moonriver,
+		moonbeam,
+		linea,
+	],
 	connectors: [
 		walletConnect({
 			projectId: projectId,
@@ -33,7 +44,6 @@ export const config = createConfig({
 		[moonriver.id]: http(),
 		[moonbeam.id]: http(),
 		[linea.id]: http(),
-
 	},
 });
 
