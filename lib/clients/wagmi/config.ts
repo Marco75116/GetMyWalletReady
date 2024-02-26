@@ -10,6 +10,7 @@ import {
 	moonriver,
 	moonbeam,
 	linea,
+	celo,
 } from "wagmi/chains";
 import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
 
@@ -27,6 +28,7 @@ export const config = createConfig({
 		moonriver,
 		moonbeam,
 		linea,
+		celo,
 	],
 	connectors: [
 		walletConnect({
@@ -44,6 +46,7 @@ export const config = createConfig({
 		[moonriver.id]: http(),
 		[moonbeam.id]: http(),
 		[linea.id]: http(),
+		[celo.id]: http(),
 	},
 });
 
