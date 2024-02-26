@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
@@ -31,8 +31,8 @@ const TopTable = () => {
 		useTokensFilter();
 
 	return (
-		<div className="flex items-center py-4 pr-1 gap-8 justify-between">
-			<div className="flex gap-8">
+		<div className="flex sm:items-center py-4 pr-1  gap-2 sm:gap-8 justify-between flex-col sm:flex-row ">
+			<div className="flex gap-2 sm:gap-8 flex-col sm:flex-row ">
 				<Input
 					placeholder="Search a token..."
 					onChange={(e) => {

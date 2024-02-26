@@ -8,6 +8,7 @@ import { Checkbox } from "../ui/checkbox";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
 import { addTokenToWallet } from "@/lib/helpers/global.helper";
 import { useAccount, useWalletClient } from "wagmi";
+import useWindow from "@/lib/hooks/useWindow";
 
 type RowTokensProps = {
 	token: Token;
@@ -17,6 +18,8 @@ const RowTokens = ({ token }: RowTokensProps) => {
 	const { tokensSelection, addTokenToSelection, removeTokenToSelection } =
 		useTokensSelection();
 	const { data: walletClient } = useWalletClient();
+
+	const windowWidthPx = useWindow();
 
 	const addTokenCell = useMemo(() => {
 		return (
@@ -51,10 +54,17 @@ const RowTokens = ({ token }: RowTokensProps) => {
 		);
 	}, [token, isSelected, addTokenToSelection, removeTokenToSelection]);
 
+	const tokenAddressCell = useMemo(() => {
+		if (windowWidthPx !== undefined && windowWidthPx > 900) {
+			return token.address;
+		}
+		return `${token.address.slice(0, 4)}...${token.address.slice(-4)}`;
+	}, [windowWidthPx, token.address]);
+
 	return (
 		<TableRow>
 			<TableCell className="font-medium">{checkboxCell}</TableCell>
-			<TableCell className="font-medium">{token.address}</TableCell>
+			<TableCell className="font-medium">{tokenAddressCell}</TableCell>
 			<TableCell className="">{token.name}</TableCell>
 			<TableCell className="">{token.symbol}</TableCell>
 			<TableCell className="text-right">{addTokenCell}</TableCell>

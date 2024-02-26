@@ -1,6 +1,6 @@
 # GetMyWalletReady - set up your wallet in seconds 
 
-An EVM-based app that also allows you to batch-add tokens to your favorite Web3 wallet, simultaneously it also adds the chain.
+An EVM-based app that also allows you to batch-add tokens to your favorite Web3 wallet, simultaneously it also adds the chains.
 
 ## Adding tokens
 
