@@ -8,7 +8,7 @@ ERC-20 compliant or compatible only, please.
 
 <b>No Shitcoins</b>. Quality Over Quantity our goal is to provide a quality user experience by incorporating reliable tokens. Therefore, we reserve the right to evaluate each submitted token against these criteria.
 
-Edit by adding your Token to  [tokens.constant.ts](/lib/constants/tokens.constant.ts) and leave a PR.
+Edit by adding your Token to [the folder /networkTokens](/lib/constants/networkTokens/) and leave a PR.
 
 
 ### Token Fields :
