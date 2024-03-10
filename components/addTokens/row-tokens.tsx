@@ -7,8 +7,9 @@ import { Plus } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
 import { addTokenToWallet } from "@/lib/helpers/global.helper";
-import { useAccount, useWalletClient } from "wagmi";
+import { useAccount, useChainId, useWalletClient } from "wagmi";
 import useWindow from "@/lib/hooks/useWindow";
+import Link from "next/link";
 
 type RowTokensProps = {
 	token: Token;
@@ -20,20 +21,31 @@ const RowTokens = ({ token }: RowTokensProps) => {
 	const { data: walletClient } = useWalletClient();
 
 	const windowWidthPx = useWindow();
+	const chainId = useChainId();
 
 	const addTokenCell = useMemo(() => {
 		return (
-			<Button
-				variant={"default"}
-				onClick={() => {
-					addTokenToWallet(token, walletClient);
-				}}
-				disabled={!isConnected}
-			>
-				Add <Plus />
-			</Button>
+			<div className="space-x-2">
+				<Button
+					variant={"default"}
+					onClick={() => {
+						addTokenToWallet(token, walletClient);
+					}}
+					disabled={!isConnected}
+				>
+					Add <Plus />
+				</Button>
+				{chainId === 5 && (
+					<Link
+						href={`https://goerli.etherscan.io/address/${token.address}#writeContract#F2`}
+						target="_blank"
+					>
+						<Button variant={"outline"}>MINT</Button>
+					</Link>
+				)}
+			</div>
 		);
-	}, [walletClient, token, isConnected]);
+	}, [walletClient, token, isConnected, chainId]);
 
 	const isSelected = useMemo(() => {
 		return tokensSelection.includes(token);

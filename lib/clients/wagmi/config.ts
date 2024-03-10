@@ -11,6 +11,7 @@ import {
 	moonbeam,
 	linea,
 	celo,
+	goerli,
 } from "wagmi/chains";
 import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
 
@@ -29,6 +30,7 @@ export const config = createConfig({
 		moonbeam,
 		linea,
 		celo,
+		goerli
 	],
 	connectors: [
 		walletConnect({
@@ -47,6 +49,8 @@ export const config = createConfig({
 		[moonbeam.id]: http(),
 		[linea.id]: http(),
 		[celo.id]: http(),
+		[goerli.id]: http(),
+
 	},
 });
 

@@ -10,6 +10,7 @@ import { moonriverTokens } from "./networkTokens/moonriverTokens";
 import { moonbeamTokens } from "./networkTokens/moonbeamTokens";
 import { lineaTokens } from "./networkTokens/lineaTokens";
 import { celoTokens } from "./networkTokens/celoTokens";
+import { goerliTokens } from "./networkTokens/goerliTokens";
 
 export const allTokens: AllTokens = {
 	...mainnetTokens,
@@ -23,4 +24,5 @@ export const allTokens: AllTokens = {
 	...moonbeamTokens,
 	...lineaTokens,
 	...celoTokens,
+	...goerliTokens
 };
