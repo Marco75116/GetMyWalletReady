@@ -14,6 +14,7 @@ import {
 	goerli,
 } from "wagmi/chains";
 import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
+import { etherlinkTestnet } from "./etherlinkTestnet";
 
 const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECTID as string;
 
@@ -30,7 +31,9 @@ export const config = createConfig({
 		moonbeam,
 		linea,
 		celo,
-		goerli
+		goerli,
+		etherlinkTestnet
+		
 	],
 	connectors: [
 		walletConnect({
@@ -50,6 +53,7 @@ export const config = createConfig({
 		[linea.id]: http(),
 		[celo.id]: http(),
 		[goerli.id]: http(),
+		[etherlinkTestnet.id]: http(),
 
 	},
 });

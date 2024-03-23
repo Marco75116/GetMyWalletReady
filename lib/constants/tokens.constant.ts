@@ -11,6 +11,7 @@ import { moonbeamTokens } from "./networkTokens/moonbeamTokens";
 import { lineaTokens } from "./networkTokens/lineaTokens";
 import { celoTokens } from "./networkTokens/celoTokens";
 import { goerliTokens } from "./networkTokens/goerliTokens";
+import { etherlinkTestnetTokens } from "./networkTokens/etherlinkTestnetTokens";
 
 export const allTokens: AllTokens = {
 	...mainnetTokens,
@@ -24,5 +25,6 @@ export const allTokens: AllTokens = {
 	...moonbeamTokens,
 	...lineaTokens,
 	...celoTokens,
-	...goerliTokens
+	...goerliTokens,
+	...etherlinkTestnetTokens
 };
