@@ -11,7 +11,6 @@ import {
 	moonbeam,
 	linea,
 	celo,
-	goerli,
 } from "wagmi/chains";
 import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
 import { etherlinkTestnet } from "./etherlinkTestnet";
@@ -31,7 +30,6 @@ export const config = createConfig({
 		moonbeam,
 		linea,
 		celo,
-		goerli,
 		etherlinkTestnet
 		
 	],
@@ -52,7 +50,6 @@ export const config = createConfig({
 		[moonbeam.id]: http(),
 		[linea.id]: http(),
 		[celo.id]: http(),
-		[goerli.id]: http(),
 		[etherlinkTestnet.id]: http(),
 
 	},
