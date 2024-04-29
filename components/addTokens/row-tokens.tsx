@@ -15,6 +15,7 @@ type RowTokensProps = {
 	token: Token;
 };
 const RowTokens = ({ token }: RowTokensProps) => {
+	
 	const { isConnected } = useAccount();
 	const { tokensSelection, addTokenToSelection, removeTokenToSelection } =
 		useTokensSelection();
@@ -35,7 +36,7 @@ const RowTokens = ({ token }: RowTokensProps) => {
 				>
 					Add <Plus />
 				</Button>
-				{chainId === 5 && (
+				{chainId === 1444673419 && (
 					<Link
 						href={`https://goerli.etherscan.io/address/${token.address}#writeContract#F2`}
 						target="_blank"
