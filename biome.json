@@ -1,7 +1,7 @@
 {
 	"files": {
 		"include": ["**/*.ts","**/*.tsx", "**/*.jsx"],
-		"exclude": ["**/abiTokensTestnet.ts"]
+		"ignore": ["**/abiTokensTestnet.ts"]
 	},
 	"$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
 	"organizeImports": {

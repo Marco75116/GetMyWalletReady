@@ -1,21 +1,50 @@
 "use client";
 import { Token } from "@/lib/types/global.types";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { TableCell, TableRow } from "../ui/table";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
 import { addTokenToWallet } from "@/lib/helpers/global.helper";
-import { useAccount, useChainId, useWalletClient, useWriteContract } from "wagmi";
+import {
+	useAccount,
+	useChainId,
+	useWalletClient,
+	useWriteContract,
+	useWaitForTransactionReceipt,
+} from "wagmi";
 import useWindow from "@/lib/hooks/useWindow";
-import { abiERC20Testnet } from "@/lib/constants/abi/abiTokensTestnet"
+import { abiERC20Testnet } from "@/lib/constants/abi/abiTokensTestnet";
+import { toast } from "sonner";
 
 type RowTokensProps = {
 	token: Token;
 };
 const RowTokens = ({ token }: RowTokensProps) => {
-	const { writeContract } = useWriteContract()
+	const { data: hash, writeContract } = useWriteContract();
+
+	const { isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+		hash,
+	});
+
+	useEffect(() => {
+		if (isConfirmed) {
+			toast("Minted!", {
+				className: "success",
+				description: "100 tokens successfully minted.",
+				action: {
+					label: "View",
+					onClick: () => {
+						window.open(
+							`https://juicy-low-small-testnet.explorer.testnet.skalenodes.com/tx/${hash}`,
+							"_blank",
+						);
+					},
+				},
+			});
+		}
+	}, [isConfirmed, hash]);
 
 	const { isConnected, address } = useAccount();
 	const { tokensSelection, addTokenToSelection, removeTokenToSelection } =
@@ -38,18 +67,19 @@ const RowTokens = ({ token }: RowTokensProps) => {
 					Add <Plus />
 				</Button>
 				{chainId === 1444673419 && (
-
-					<Button variant={"outline"} onClick={() =>
-						writeContract({
-							abi: abiERC20Testnet,
-							address: token.address as `0x${string}`,
-							functionName: 'mint',
-							args: [
-								address,
-								100 * 10 ** token.decimals
-							],
-						})}>MINT</Button>
-
+					<Button
+						variant={"outline"}
+						onClick={() => {
+							writeContract({
+								abi: abiERC20Testnet,
+								address: token.address as `0x${string}`,
+								functionName: "mint",
+								args: [address, 100 * 10 ** token.decimals],
+							});
+						}}
+					>
+						MINT
+					</Button>
 				)}
 			</div>
 		);
