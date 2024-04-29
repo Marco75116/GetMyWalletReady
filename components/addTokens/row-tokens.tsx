@@ -22,7 +22,7 @@ type RowTokensProps = {
 	token: Token;
 };
 const RowTokens = ({ token }: RowTokensProps) => {
-	const { data: hash, writeContract } = useWriteContract();
+	const { data: hash, isPending, writeContract } = useWriteContract();
 
 	const { isSuccess: isConfirmed } = useWaitForTransactionReceipt({
 		hash,
@@ -69,6 +69,7 @@ const RowTokens = ({ token }: RowTokensProps) => {
 				{chainId === 1444673419 && (
 					<Button
 						variant={"outline"}
+						disabled={isPending}
 						onClick={() => {
 							writeContract({
 								abi: abiERC20Testnet,
@@ -83,7 +84,15 @@ const RowTokens = ({ token }: RowTokensProps) => {
 				)}
 			</div>
 		);
-	}, [walletClient, token, isConnected, chainId, address, writeContract]);
+	}, [
+		walletClient,
+		token,
+		isConnected,
+		chainId,
+		address,
+		writeContract,
+		isPending,
+	]);
 
 	const isSelected = useMemo(() => {
 		return tokensSelection.includes(token);
