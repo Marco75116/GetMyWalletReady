@@ -7,16 +7,17 @@ import { Plus } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { useTokensSelection } from "@/lib/stores/tokensSelection.store";
 import { addTokenToWallet } from "@/lib/helpers/global.helper";
-import { useAccount, useChainId, useWalletClient } from "wagmi";
+import { useAccount, useChainId, useWalletClient, useWriteContract } from "wagmi";
 import useWindow from "@/lib/hooks/useWindow";
-import Link from "next/link";
+import { abiERC20Testnet } from "@/lib/constants/abi/abiTokensTestnet"
 
 type RowTokensProps = {
 	token: Token;
 };
 const RowTokens = ({ token }: RowTokensProps) => {
-	
-	const { isConnected } = useAccount();
+	const { writeContract } = useWriteContract()
+
+	const { isConnected, address } = useAccount();
 	const { tokensSelection, addTokenToSelection, removeTokenToSelection } =
 		useTokensSelection();
 	const { data: walletClient } = useWalletClient();
@@ -37,16 +38,22 @@ const RowTokens = ({ token }: RowTokensProps) => {
 					Add <Plus />
 				</Button>
 				{chainId === 1444673419 && (
-					<Link
-						href={`https://goerli.etherscan.io/address/${token.address}#writeContract#F2`}
-						target="_blank"
-					>
-						<Button variant={"outline"}>MINT</Button>
-					</Link>
+
+					<Button variant={"outline"} onClick={() =>
+						writeContract({
+							abi: abiERC20Testnet,
+							address: token.address as `0x${string}`,
+							functionName: 'mint',
+							args: [
+								address,
+								100 * 10 ** token.decimals
+							],
+						})}>MINT</Button>
+
 				)}
 			</div>
 		);
-	}, [walletClient, token, isConnected, chainId]);
+	}, [walletClient, token, isConnected, chainId, address, writeContract]);
 
 	const isSelected = useMemo(() => {
 		return tokensSelection.includes(token);
