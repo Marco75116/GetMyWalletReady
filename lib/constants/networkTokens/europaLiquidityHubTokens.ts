@@ -1,8 +1,7 @@
-import { europaLiquidityHub } from "@/lib/clients/wagmi/europaLiquidityHub";
-
+import { skaleEuropaTestnet } from "viem/chains";
 
 export const europaLiquidityHubTokens = {
-	[europaLiquidityHub.id]: [
+	[skaleEuropaTestnet.id]: [
 		{
 			symbol: "DAI",
 			name: "Dai Stablecoin",
@@ -31,6 +30,5 @@ export const europaLiquidityHubTokens = {
 			address: "0x428cE04DE2C55B5cb4A88dD5a6a354714ACA21a1",
 			isStableCoins: false,
 		},
-		
 	],
 };

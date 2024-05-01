@@ -11,10 +11,10 @@ import {
 	moonbeam,
 	linea,
 	celo,
+	skaleEuropaTestnet,
 } from "wagmi/chains";
 import { injected, metaMask, safe, walletConnect } from "wagmi/connectors";
 import { etherlinkTestnet } from "./etherlinkTestnet";
-import { europaLiquidityHub } from "./europaLiquidityHub";
 
 const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECTID as string;
 
@@ -32,7 +32,7 @@ export const config = createConfig({
 		linea,
 		celo,
 		etherlinkTestnet,
-		europaLiquidityHub
+		skaleEuropaTestnet,
 	],
 	connectors: [
 		walletConnect({
@@ -52,13 +52,6 @@ export const config = createConfig({
 		[linea.id]: http(),
 		[celo.id]: http(),
 		[etherlinkTestnet.id]: http(),
-		[europaLiquidityHub.id]: http(),
-	},
-});
-
-export const configB = createConfig({
-	chains: [optimism],
-	transports: {
-		[optimism.id]: http(),
+		[skaleEuropaTestnet.id]: http(),
 	},
 });
